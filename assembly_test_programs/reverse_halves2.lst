@@ -1,0 +1,71 @@
+0x00000000: 0x8C1E0028	            	            lw R30 R0 data1
+0x00000001: 0xAC1E0026	            	            sw R30 R0 adr4
+					            	 
+0x00000002: 0x8C010026	            	            lw R1 R0 adr4 *R1=n
+0x00000003: 0x8C070029	            	            lw R7 R0 data2 *constant 1
+0x00000004: 0x8C08002A	            	            lw R8 R0 data3 *low bits mask
+0x00000005: 0x2C0C001A	            	            addi R12 R0 reverse
+0x00000006: 0x8C06002B	            	            lw R6 R0 data4 * R6=16=i (index) for shift logic right
+0x00000007: 0x2C220000	            	            addi R2 R1 0x00 * R2 is upper half
+					           *bits 31:	16
+0x00000008: 0x005F1002	loop1:      	      srli R2 R2
+0x00000009: 0x00C73022	            	            sub R6 R6 R7 *i--
+0x0000000A: 0x14DFFFFD	            	            bnez R6 loop1 *back to slr 16 times
+0x0000000B: 0x00481026	            	            and R2 R2 R8 *saves reverse function pc
+					           *bits 15:	0
+0x0000000C: 0x00281826	            	            and R3 R1 R8 
+					            	            *reverse higher bits
+0x0000000D: 0x00404823	            	            add R9 R2 R0
+0x0000000E: 0x5D9F0000	            	            jalr R12
+0x0000000F: 0x01401023	            	            add R2 R10 R0
+					            	            *reverse lower bits
+0x00000010: 0x00604823	            	            add R9 R3 R0
+0x00000011: 0x5D9F3030	            	            jalr R12
+0x00000012: 0x01401823	            	            add R3 R10 R0
+0x00000013: 0x8C06002B	            	            lw R6 R0 data4 * R6=16=i (index) for shift logic left
+0x00000014: 0x005F1000	loop2:      	     slli R2 R2
+0x00000015: 0x00C73022	            	            sub R6 R6 R7 *i - -
+0x00000016: 0x14DFFFFD	            	            bnez R6 loop2 *back to slr 16 times
+0x00000017: 0x00432025	            	            or R4 R2 R3
+					            	            *return
+0x00000018: 0xAC040027	            	            sw R4 R0 adr5
+0x00000019: 0xFFFF0000	            	            halt
+					            	            *n=R9, return in R10
+0x0000001A: 0x00005023	reverse:    	   add R10 R0 R0 
+0x0000001B: 0x8C06002B	            	            lw R6 R0 data4 * R6=16=i (index)
+0x0000001C: 0x015F5000	loop3:      	     slli R10 R10
+0x0000001D: 0x01275826	            	            and R11 R9 R7 
+0x0000001E: 0x014B5025	            	            or R10 R10 R11
+0x0000001F: 0x013F4802	            	            srli R9 R9
+0x00000020: 0x00C73022	            	            sub R6 R6 R7 * index - -
+0x00000021: 0x14DFFFFA	            	            bnez R6 loop3
+0x00000022: 0x5BFFCB20	            	            jr R31
+					            	 
+					            	            *adderesses
+0x00000023: 0x00000000	adr1:       	 dc 0x0
+0x00000024: 0x00000000	adr2:       	 dc 0x0
+0x00000025: 0x00000000	adr3:       	 dc 0x0
+0x00000026: 0x00000000	adr4:       	 dc 0x0
+0x00000027: 0x00000000	adr5:       	 dc 0x0
+					            	            *data
+0x00000028: 0x1212FF00	           data1:	 dc 0x1212ff00 *input
+0x00000029: 0x00000001	           data2:	 dc 0x1        *constant 1
+0x0000002A: 0x0000FFFF	           data3:	 dc 0x0000ffff *low bits mask
+0x0000002B: 0x00000010	           data4:	 dc 0x10       *constant 16 for loops index
+					            	 
+
+Label Report:
+loop1: 11 D: 13
+loop2: 26 D: 28
+reverse: 34 D: 7
+loop3: 36 D: 41
+adr1: 45 D: 
+adr2: 46 D: 
+adr3: 47 D: 
+adr4: 48 D: 2, 4
+adr5: 49 D: 31
+data1: 51 D: 1
+data2: 52 D: 5
+data3: 53 D: 6
+data4: 54 D: 8, 25, 35
+*XML file date: Wed 20/6/2012 6:49:12

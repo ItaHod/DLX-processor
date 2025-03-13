@@ -1,0 +1,47 @@
+					            	 
+					            	 					
+					            	 					
+					            	 	 				* Instructions
+					            	 					
+0x00000000: 0x2C010002	start:      	 	addi R1 R0 2 *R1=R0+2=2		
+0x00000001: 0xAC010001	            	 	sw   R1 R0 1 *M(0x1)=R1=2
+0x00000002: 0x2C010007	            	 	addi    R1 R0 7 *R1=7 
+0x00000003: 0x8C010001	            	 	lw 	R1 R0 1 *R1=M(0x1)=2
+0x00000004: 0x003F1000	            	 	slli R2 R1 *R2=R1<<1=4		 	
+0x00000005: 0x005F1002	            	 	srli R2 R2 		*R2=R2>>1=2		
+0x00000006: 0x2C420001	            	 	addi R2 R2 1 *R2=R2+1=3		
+0x00000007: 0x00221823	            	 	add R3 R1 R2 *R3=R1+R2=5		
+0x00000008: 0x00410822	            	 	sub R1 R2 R1*R1=R2-R1=1			
+0x00000009: 0x00222826	            	 	and R5 R1 R2*R5=R1 and R2 = 1
+0x0000000A: 0x00433025	            	 	or R6 R2 R3*R6=R2 or R3 = 7	
+0x0000000B: 0x00453824	            	 	xor R7 R2 R5*R7=R2 xor R5 = 2	
+0x0000000C: 0x2C09001D	            	 	addi R9 R0 29*R9=29=PC of F		
+					            	 					
+0x0000000D: 0x70280002	            	 	slti R8 R1 2 *R8 = R1<2 = 1		
+0x0000000E: 0x68280000	            	 	seqi 	R8 R1 0*R8 = (R1==0) = 0	
+0x0000000F: 0x64280000	            	 	sgti R8 R1 0*R8 = R1>0 = 1		
+0x00000010: 0x78280000	            	 	slei R8 R1 0*R8 = R1<=0 = 0		
+0x00000011: 0x6C280001	            	 	sgei R8 R1 1*R8 = R1>=1 = 1		
+0x00000012: 0x74280001	            	 	snei R8 R1 1*R8 = R1!=1 = 0
+0x00000013: 0x103F0001	            	 	beqz R1 1
+0x00000014: 0x101F0001	            	 	beqz R0    1
+0x00000015: 0x2C01000A	            	 	addi R1 R0 10*will be skipped	
+0x00000016: 0x141F0001	            	 	bnez R0    1
+0x00000017: 0x143F0001	            	 	bnez R1    1
+0x00000018: 0x2C01000A	            	 	addi R1 R0 10*will be skipped	
+0x00000019: 0x5D3F0000	            	 	jalr R9
+0x0000001A: 0xFFFFFFFF	            	 	halt
+0x0000001B: 0x2C01000A	            	 	addi R1 R0 10*will not happen	
+0x0000001C: 0x2C01000A	            	 	addi R1 R0 10*will not happen
+0x0000001D: 0x2C02000A	F:          	           addi R2 R0 10
+0x0000001E: 0x5BFFDF64	            	 	jr R31 *Go to halt		
+					            	 			
+					            	 
+					            	 					
+					            	 					
+					            	 
+
+Label Report:
+start: 6 D: 
+f: 36 D: 
+*XML file date: Wed 20/6/2012 6:49:12
